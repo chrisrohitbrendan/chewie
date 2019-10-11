@@ -24,7 +24,7 @@ class _PlayerWithControlsState extends State<PlayerWithControls> {
     VideoPlayerController oldController = _videoPlayerController;
     _videoPlayerController =  ChewieController.of(context).videoPlayerController;
     if (oldController != _videoPlayerController) {
-      oldController.removeListener(listener);
+      oldController?.removeListener(listener);
       _videoPlayerController.addListener(listener);
     }
     super.didChangeDependencies();
