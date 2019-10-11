@@ -17,20 +17,22 @@ class PlayerWithControls extends StatefulWidget {
 class _PlayerWithControlsState extends State<PlayerWithControls> {
   bool isPlaying = false;
 
-  VoidCallback _listener;
+  VideoPlayerController _videoPlayerController;
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-    ChewieController chewieController = ChewieController.of(context);
-    VideoPlayerController controller = chewieController.videoPlayerController;
-    if (_listener != null) {
-      controller.removeListener(_listener);
+    VideoPlayerController oldController = _videoPlayerController;
+    _videoPlayerController =  ChewieController.of(context).videoPlayerController;
+    if (oldController != _videoPlayerController) {
+      oldController.removeListener(listener);
+      _videoPlayerController.addListener(listener);
     }
-    controller.addListener(_listener = () {
-      setState(() {
-        isPlaying = controller.value.isPlaying;
-      });
+    super.didChangeDependencies();
+  }
+
+  void listener() {
+    setState(() {
+      isPlaying = _videoPlayerController.value.isPlaying;
     });
   }
 
@@ -48,7 +50,7 @@ class _PlayerWithControlsState extends State<PlayerWithControls> {
       ),
     );
   }
-
+ 
   Container _buildPlayerWithControls(
     ChewieController chewieController,
     BuildContext context,
