@@ -15,10 +15,10 @@ dependencies:
   screen: ">=0.0.4 <0.1.0"
   flutter:
     sdk: flutter
+    
   video_player:
       git:
-        url: https://github.com/999eagle/plugins.git
-        ref: feature/caching
+        url: https://github.com/recastrodiaz/plugins.git
         path: packages/video_player
 
 dev_dependencies:
