@@ -37,8 +37,12 @@ class _ChewieDemoState extends State<ChewieDemo> {
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
       aspectRatio: 3 / 2,
-      autoPlay: true,
+      autoPlay: false,
+      autoInitialize: true,
       looping: true,
+      placeholder: Container(
+        color: Colors.black,
+      ),
       // Try playing around with some of these other options:
 
       // showControls: false,

@@ -7,13 +7,36 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class PlayerWithControls extends StatelessWidget {
+class PlayerWithControls extends StatefulWidget {
   PlayerWithControls({Key key}) : super(key: key);
+
+  @override
+  _PlayerWithControlsState createState() => _PlayerWithControlsState();
+}
+
+class _PlayerWithControlsState extends State<PlayerWithControls> {
+  bool isPlaying = false;
+
+  VoidCallback _listener;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ChewieController chewieController = ChewieController.of(context);
+    VideoPlayerController controller = chewieController.videoPlayerController;
+    if (_listener != null) {
+      controller.removeListener(_listener);
+    }
+    controller.addListener(_listener = () {
+      setState(() {
+        isPlaying = controller.value.isPlaying;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final ChewieController chewieController = ChewieController.of(context);
-
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -40,7 +63,7 @@ class PlayerWithControls extends StatelessWidget {
               child: VideoPlayer(chewieController.videoPlayerController),
             ),
           ),
-          !chewieController.videoPlayerController.value.isPlaying
+          !isPlaying
               ? chewieController.placeholder ?? Container()
               : Container(),
           chewieController.overlay ?? Container(),
