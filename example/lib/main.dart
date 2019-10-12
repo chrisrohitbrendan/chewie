@@ -11,7 +11,7 @@ void main() {
 }
 
 class ChewieDemo extends StatefulWidget {
-  ChewieDemo({this.title = 'Chewie Demo'});
+  ChewieDemo({this.title = 'Chewie Something'});
 
   final String title;
 
@@ -36,26 +36,27 @@ class _ChewieDemoState extends State<ChewieDemo> {
         'https://www.sample-videos.com/video123/mp4/480/asdasdas.mp4');
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
-      aspectRatio: 3 / 2,
+      aspectRatio: 16 / 9,
       autoPlay: false,
       autoInitialize: true,
       looping: true,
-      placeholder: Container(
-        color: Colors.black,
-      ),
       // Try playing around with some of these other options:
-
-      // showControls: false,
-      // materialProgressColors: ChewieProgressColors(
-      //   playedColor: Colors.red,
-      //   handleColor: Colors.blue,
-      //   backgroundColor: Colors.grey,
-      //   bufferedColor: Colors.lightGreen,
-      // ),
-      // placeholder: Container(
-      //   color: Colors.grey,
-      // ),
-      // autoInitialize: true,
+      showControls: false,
+      errorBuilder: (context, string){
+        return IconButton(
+           icon: Icon(Icons.dashboard),
+           onPressed: (){},
+        );
+      },
+      materialProgressColors: ChewieProgressColors(
+        playedColor: Colors.red,
+        handleColor: Colors.blue,
+        backgroundColor: Colors.grey,
+        bufferedColor: Colors.lightGreen,
+      ),
+      placeholder: Container(
+        color: Colors.grey,
+      ),
     );
   }
 
